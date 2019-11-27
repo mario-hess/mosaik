@@ -5,25 +5,6 @@ const bcrypt = require("bcryptjs");
 const transporter = require("../public/js/nodemailerTransport");
 const { validationResult } = require("express-validator");
 
-exports.getLogin = (req, res, next) => {
-  let message = req.flash("error");
-  if (message.length > 0) {
-    message = message[0];
-  } else {
-    message = null;
-  }
-  res.render("auth/login", {
-    path: "/login",
-    docTitle: "Login",
-    errorMessage: message,
-    oldInput: {
-      email: "",
-      password: ""
-    },
-    validationErrors: []
-  });
-};
-
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -99,25 +80,6 @@ exports.postLogout = (req, res, next) => {
   });
 };
 
-exports.getSignUp = (req, res, next) => {
-  let message = req.flash("error");
-  if (message.length > 0) {
-    message = message[0];
-  } else {
-    message = null;
-  }
-  res.render("auth/signup", {
-    path: "/signup",
-    docTitle: "Signup",
-    errorMessage: message,
-    oldInput: {
-      email: "",
-      password: "",
-      confirmPassword: ""
-    },
-    validationErrors: []
-  });
-};
 
 exports.postSignUp = (req, res, next) => {
   const email = req.body.email;
