@@ -61,7 +61,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(
   session({
-    secret: secret,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     store: store
@@ -120,7 +120,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true })
+  .connect(process.env.MONGODB, { useNewUrlParser: true })
   .then(result => {
     app.listen(process.env.PORT || 5000);
   })

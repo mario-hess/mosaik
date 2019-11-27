@@ -5,6 +5,15 @@ const bcrypt = require("bcryptjs");
 const transporter = require("../public/js/nodemailerTransport");
 const { validationResult } = require("express-validator");
 
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.USER,
+    pass: process.env.PSWD
+  }
+});
+
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
