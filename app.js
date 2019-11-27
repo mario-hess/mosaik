@@ -10,16 +10,16 @@ const multer = require("multer");
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
-
+/*
 const mongodbUri = require("./config/keys");
 const secret = require("./config/secret");
 
 const MONGODB_URI = mongodbUri;
-
+*/
 const app = express();
 
 const store = new MongoDBStore({
-  uri: MONGODB_URI,
+  uri: process.env.MONGODB,
   collection: "sessions"
 });
 
