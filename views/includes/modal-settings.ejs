@@ -1,0 +1,19 @@
+<div id="modal-settings" class="modal">
+    <div class="modal-content">
+        <div class="row center-align">
+            <h5 class="modal-heading-background center-align">Settings</h5>
+            <% if (isAuthenticated) { %>
+            <form class="col s10 m8 l6 xl4 offset-s1 offset-m3 offset-l3 offset-xl4" action="/admin/deleteAccount"
+                method="POST">
+                <div class="row center-align">
+                    <div class="col s10 m10 l12 xl12 offset-s1 offset-m1">
+                        <p class="center-align">Your account will get permanently deleted.<br>Are you sure?</p>
+                    </div>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="btn modal-close waves-effect waves-light red">Delete Account</button>
+                </div>
+            </form>
+            <% } %>
+        </div>
+    </div>
+</div>

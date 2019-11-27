@@ -1,0 +1,77 @@
+<%- include('../includes/head.ejs') %>
+
+</head>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <%- include('../includes/profile-data.ejs') %>
+
+    <div class="container center-align">
+        <div class="headings">
+            <h4 class="wds-midlight-aqua">
+                Messages
+            </h4>
+        </div>
+        <div class="row">
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header colrr-text"><i class="material-icons">mail</i>Inbox</div>
+                    <div class="collapsible-body center-align">
+                        <% inbox.forEach(msg => { %>
+                        <div class="row valign-wrapper">
+                            <div class="col s4">
+                                <% if (msg.fromImage != null){ %>
+                                <img style="height:80px;width:80px;" src="/<%= msg.fromImage %>" alt=""
+                                    class="circle responsive-img">
+                                <% }else { %>
+                                <i class="material-icons" style="font-size:5rem">account_circle</i>
+                                <% } %>
+                            </div>
+                            <div class="col s8">
+                                <a href="<%= '/admin/user/' + msg.from.toString() %>">
+                                    <h5><%= msg.fromName %> </h5>
+                                </a>
+                                <p><%= msg.time %></p>
+                                <h5 style="color:forestgreen"><%= msg.subject %></h5>
+                                <p><%= msg.message %></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <% }) %>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header colrr-text"><i class="material-icons">send</i>Sent</div>
+                    <div class="collapsible-body center-align">
+                        <% sent.forEach(msg => { %>
+                        <div class="row valign-wrapper">
+                            <div class="col s4">
+                                <img style="height:80px;width:80px;" src="/<%= msg.toImage %>" alt=""
+                                    class="circle responsive-img">
+                            </div>
+                            <div class="col s8">
+                                <a href="<%= '/admin/user/' + msg.to.toString() %>">
+                                    <h5><%= msg.toName %></h5>
+                                </a>
+                                <p><%= msg.time %></p>
+                                <p><%= msg.message %></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <% }) %>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <%- include('../includes/profile-end.ejs') %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems);
+        });
+    </script>
+
+    </div>
+    <%- include('../includes/end.ejs') %>

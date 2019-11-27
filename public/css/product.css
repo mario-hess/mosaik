@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Karla&display=swap');
+
+.product-form {
+    width: 30rem;
+    max-width: 90%;
+    margin: auto;
+    margin-bottom:160px;
+    display: block;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 2rem 2rem;
+    background-color:white;
+    border-radius: 8px;
+
+}
+
+.product-item {
+    width: 20rem;
+    max-width: 95%;
+}
+
+.product__title {
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.product__artist-link {
+    text-decoration: none;
+    text-transform: capitalize;
+    color:blueviolet;
+    padding:0.3rem;
+    border: 1px solid blueviolet;
+    border-radius: 4px;
+    margin-left:0.2rem;
+    font-weight:bold;
+}
+
+.product__artist-link:hover {
+    text-decoration: none;
+    text-transform: capitalize;
+    color:white;
+    background:blueviolet;
+    padding:0.3rem;
+}
+
+.product__hr {
+    width:40%;
+    margin-bottom:2rem;
+    margin-top:2rem;
+}
+
+.product__price {
+    text-align: center;
+    color: #4d4d4d;
+    margin-bottom: 0.5rem;
+}
+
+.product__description {
+    text-align: center;
+    margin-top:1rem;
+}
+
+.product__creator {
+    text-align:center;
+    
+}

@@ -1,0 +1,21 @@
+<% 
+let newMessage = false;
+let countMessages = 0;
+if(isAuthenticated){ 
+    user.messages.forEach(message => {
+        if(message.newMessage === true){
+            newMessage = true;
+            countMessages++;
+        }
+    })
+} 
+if(newMessage === true){
+%>
+<% if(countMessages === 1){ %>
+<div class="user-message--success"><i class="material-icons btn-icon">mail</i>You have <%= countMessages %> new Message!
+</div>
+<% }else{ %>
+<div class="user-message--success"><i class="material-icons btn-icon">mail</i>You have <%= countMessages %> new
+    Messages!</div>
+<% } %>
+<% } %>

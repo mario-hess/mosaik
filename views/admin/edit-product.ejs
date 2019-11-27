@@ -1,0 +1,67 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/forms.css">
+</head>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <div class="container">
+        <% if(errorMessage) { %>
+        <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
+        <form class="" action="/admin/edit-product %>" method="POST" enctype="multipart/form-data">
+            <h3 class="center-align">Edit Product</h3>
+            <div class="input-field input-field-modal">
+                <label for="title">Title</label>
+                <input class="input-field <%= validationErrors.find(e => e.param === 'title') ? 'invalid' : '' %>"
+                    type="text" name="title" id="title" placeholder="Scream / Mona Lisa ..."
+                    value="<%= product.title %>">
+            </div>
+            <div class="file-field input-field input-field-modal">
+                <div class="btn waves-effect waves-light colrr">
+                    <span>File</span>
+                    <input type="file" name="image" id="image" multiple>
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+
+            <div class="input-field input-field-modal">
+                <label for="price">Price</label>
+                <input class="<%= validationErrors.find(e => e.param === 'price') ? 'invalid' : '' %>" type="number"
+                    name="price" id="price" step="0.01" placeholder="Your Price ..." value="<%= product.price %>">
+            </div>
+            <div class="input-field input-field-modal">
+                <label for="category">Category</label>
+                <input class="<%= validationErrors.find(e => e.param === 'category') ? 'invalid' : '' %>" type="text"
+                    name="category" id="category" placeholder="Painting / Sculpture ..."
+                    value="<%= product.category %>">
+            </div>
+            <div class="input-field input-field-modal">
+                <label for="description">Description</label>
+                <textarea
+                    class="materialize-textarea <%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %>"
+                    type="text" name="description" id="description"
+                    placeholder="Tell us about your artwork ..."><%= product.description %></textarea>
+            </div>
+
+
+            <input type="hidden" value="<%= product._id %>" name="productId">
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn waves-effect waves-light colrr" type="submit">Update Product</button>
+        </form>
+
+
+        <form class="center-align" action="<%= '/admin/product/delete/' + product._id.toString() %>" method="POST"
+            style="margin-top:2rem;">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="waves-effect waves-light btn red"><i
+                    class="material-icons right">close</i>Delete</button>
+        </form>
+
+    </div>
+</main>
+
+</div>
+<%- include('../includes/end.ejs') %>

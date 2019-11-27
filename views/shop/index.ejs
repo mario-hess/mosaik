@@ -1,0 +1,74 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<%- include('../includes/navigation.ejs') %>
+<% if(isAuthenticated) { %>
+<%- include("../includes/action-bar.ejs") %>
+<% } %>
+<main>
+    <div>
+        <div class="col s12" id="stripes">
+            <span class="stripe" id="stripe1"></span>
+            <span class="stripe" id="stripe2"></span>
+            <span class="stripe" id="stripe3"></span>
+            <span class="stripe" id="stripe4"></span>
+            <span class="stripe" id="stripe5"></span>
+        </div>
+        <%- include('../includes/messageNotification.ejs') %>
+        <% if(errorMessage) { %>
+        <div class="user-message user-message--error"><i
+                class="material-icons btn-icon">info_outline</i><%= errorMessage %></div>
+        <% } %>
+        <% if(successMessage) { %>
+        <div class="user-message user-message--success"><i
+                class="material-icons btn-icon">check</i><%= successMessage %></div>
+        <% } %>
+        <div class="intro">
+            <h4 class="brand-logo" style="font-size:4rem;">Mosaik</h4>
+            <p style="text-transform: uppercase;width:70%;margin:auto;margin-bottom:60px;letter-spacing:3px;">The
+                platform for handcrafted art</p>
+            <a href="/products" class="waves-effect waves-light btn-large transp"><i
+                    class="material-icons right">palette</i>Discover</a>
+            <p>Art is precious. Art needs attention. We are aiming to support the art scene in Austria. Offer and
+                purchase artworks from local artists.</p>
+            <i class="material-icons arrow">arrow_drop_down</i>
+        </div>
+    </div>
+    <div class="intro_front">
+        <h5>Offer your artworks</h5>
+        <div class="button_front">
+            <a class="modal-trigger btn btn-front transp"
+                href="<%= !isAuthenticated ? '#modal1' : '/admin/user/' + user._id.toString() %>">Login</a>
+            <a class="modal-trigger btn btn-front transp"
+                href="<%= !isAuthenticated ? '#modal2' : '/admin/user/' + user._id.toString() %>">Sign Up</a>
+        </div>
+        <p style="color:#1a1a1a">Set up your account and add your artworks!<br>Every new user is an essential part of
+            the mosaic.</p>
+    </div>
+    <div>
+        <div class="col s12" id="stripes2">
+            <div class="container center-align intro_end">
+                <div class="row">
+                    <div class="col s10 l4 offset-s1 front_item">
+                        <i class="fas fa-fingerprint fa-3x"></i>
+                        <h4>Unique</h4>
+                        <p>In order to be irreplaceable one must always be different.</p>
+                    </div>
+                    <div class="col s10 l4 offset-s1 front_item">
+                        <i class="far fa-gem fa-3x" style="height:108px;padding-top:28px"></i>
+                        <h4>Quality</h4>
+                        <p>It's quality rather than quantity that matters.</p>
+                    </div>
+                    <div class="col s10 l4 offset-s1 front_item">
+                        <i class="fas fa-hands-helping fa-3x"></i>
+                        <h4>Trust</h4>
+                        <p>Keep your promises and be consistent. Be the kind of person others can trust.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+</body>
+<%- include('../includes/end.ejs') %>

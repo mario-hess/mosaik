@@ -1,0 +1,39 @@
+{
+    "name": "artwork-shop",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon app.js"
+    },
+    "author": "Mario Hess",
+    "license": "ISC",
+    "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.9.0",
+        "nodemon": "^1.19.0"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "connect-flash": "^0.1.1",
+        "connect-mongodb-session": "^2.2.0",
+        "csurf": "^1.10.0",
+        "ejs": "^2.6.1",
+        "express": "^4.16.4",
+        "express-handlebars": "^3.1.0",
+        "express-session": "^1.16.2",
+        "express-validator": "^6.1.1",
+        "moment": "^2.24.0",
+        "mongodb": "^3.2.7",
+        "mongoose": "^5.5.14",
+        "multer": "^1.4.2",
+        "mysql2": "^1.6.5",
+        "nodemailer": "^6.3.1",
+        "nodemailer-sendgrid-transport": "^0.2.0",
+        "pdfkit": "^0.10.0",
+        "pug": "^2.0.3",
+        "sequelize": "^5.19.2",
+        "stripe": "^7.4.0"
+    }
+}

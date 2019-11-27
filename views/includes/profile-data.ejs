@@ -1,0 +1,66 @@
+<% if(isAuthenticated && user._id.toString() === userData._id.toString()) { %>
+<%- include("../includes/action-bar.ejs") %>
+<% } %>
+<%- include('../includes/messageNotification.ejs') %>
+<div class="profile__data">
+    <div class="row" style="padding-top:40px;">
+        <div class="col s10 m10 l6 xl4 offset-s1 offset-m1 offset-l3 offset-xl4 center-align" style="padding:0;">
+            <div class="center-align white-text" style="margin:0;">
+                <% if(user._id.toString() === userData._id.toString() && !userData.userImage) { %>
+                <div class="add-photo-icon-wrapper">
+                    <a class="modal-trigger add-photo-icon" href="#modal4"><i class="material-icons">add_a_photo</i></a>
+                </div>
+
+
+                <% } else if(userData.userImage) { %>
+                <a class="<%= user._id.toString() === userData._id.toString() ? 'modal-trigger' : ''  %>"
+                    href="<%= user._id.toString() === userData._id.toString() ? '#modal4' : ''  %>"><img
+                        src="/<%= userData.userImage %>" alt="Click to edit profile picture"
+                        style="height:120px;width:120px;object-fit: cover;border:3px solid white" class="circle"></a>
+                <% } %>
+
+                <div class="row valign-wrapper center-align">
+                    <div class="col s10 offset-s1">
+                        <h4><%= userData.address.firstName + " " + userData.address.surname %></h4>
+                        <p><%= userData.address.postalCode + " " + userData.address.city %></p>
+                        <span>
+                            <p style="margin-top:2rem;"><%= userData.description %></p>
+                        </span>
+                        <% if (user._id.toString() === userData._id.toString()) { %>
+                        <div class="row white-text">
+                            <form class="col s12 profile__description__form" id="profile__description__form"
+                                action="/admin/user/update/description" method="POST">
+                                <div class="row">
+                                    <div class="input-field input-field-profile col s10 offset-s1">
+                                        <textarea id="desc" class="materialize-textarea profile__description white-text"
+                                            name="description" type="text" cols="30" rows="10" data-length="200"
+                                            maxlength="200"></textarea>
+                                        <label for="description">Description</label>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="waves-effect waves-light btn-small colrr" type="submit"><i
+                                        class="material-icons right">check</i>Ok</button>
+                            </form>
+                        </div>
+                        <button class="waves-effect waves-light btn-small colrr" id="toggleDesc__button"
+                            onClick="toggleDescription()" style="margin-bottom:2rem"><i
+                                class="material-icons right">mode_edit</i>edit</button>
+
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="userData center-align">
+        <% if (user._id.toString() !== userData._id.toString()) { %>
+        <a class="modal-trigger waves-effect waves-light btn colrr" href="#send-message" style="margin-bottom:3rem"><i
+                class="material-icons btn-icon">chat</i>send message</a>
+        <% } %>
+    </section>
+
+    <%- include("../includes/modal-add-artwork.ejs") %>
+    <%- include("../includes/modal-settings.ejs") %>
+
+</div>

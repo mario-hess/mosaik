@@ -1,0 +1,69 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<%- include('../includes/navigation.ejs') %>
+
+
+
+<main>
+    <%- include('../includes/profile-data.ejs') %>
+
+    <div class="container" style="margin-bottom:80px;">
+        <div class="center-align headings">
+            <h4 class="wds-midlight-aqua">
+                <% if(user._id.toString() === userData._id.toString()) { %>
+                My Artworks
+                <% } else { %>
+                <%= userData.address.firstName %>'s Artworks
+                <% } %>
+            </h4>
+        </div>
+
+        <% if (products.length > 0) { %>
+        <div class="row">
+            <% for (let product of products) { %>
+            <div class="col s12 m6 l4 xl3 card-col__custom">
+                <div class="card sticky-action card__custom">
+                    <div class="card-image card-custom__image">
+                        <img class="activator" src="/<%= product.imageUrl[0] %>" alt="<%= product.title %>"
+                            style="object-fit: cover;">
+                        <% if(user._id.toString() === userData._id.toString() && product.sold === false){ %>
+                        <a href="<%= '/admin/edit-product/' + product._id.toString() %>"
+                            class="btn-floating halfway-fab waves-effect waves-light colrr">
+                            <i class="material-icons">mode_edit</i></a>
+                        <% } %>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">
+                            <h5><%= product.price %> €</h5><i class="material-icons right">more_vert</i>
+                        </span>
+                        <p><a
+                                href="<%= '/admin/user/' + product.userId._id %>"><%= userData.address.firstName + " " + userData.address.surname %></a>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <% if(!product.sold){ %>
+                        <a href="/products/<%= product._id %>">Details</a>
+                        <% }else {%>
+                        <p style="color:forestgreen">SOLD</p>
+                        <% } %>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">
+                            <h4 style="text-transform:capitalize"><%= product.title %></h4><i
+                                class="material-icons right red-text">close</i>
+                        </span>
+                        <p><%= product.description %></p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+
+        <% } else { %>
+        <h5 class="center-align">I can't show your artworks if you haven't added one!</h5>
+        <% } %>
+    </div>
+    </div>
+    <%- include('../includes/profile-end.ejs') %>
+
+    <%- include('../includes/end.ejs') %>

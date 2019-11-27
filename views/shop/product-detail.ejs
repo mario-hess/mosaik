@@ -1,0 +1,58 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<%- include('../includes/navigation.ejs') %>
+<% if(isAuthenticated) { %>
+<%- include("../includes/action-bar.ejs") %>
+<% } %>
+
+<main>
+    <div class="container center-align" style="margin-top:40px;margin-bottom:40px">
+        <h3 class="wds-midlight-aqua" style="text-transform: capitalize;"><%= product.title %></h3>
+    </div>
+
+    <div class="carousel carousel-slider">
+        <% for (i = 0; i < product.imageUrl.length; i++){ %>
+        <a class="carousel-item" href="/<%= product.imageUrl[i] %>"><img class="img-responsive" style="z-index:400;"
+                src="/<%= product.imageUrl[i] %>"></a>
+        <% } %>
+    </div>
+    <div class="container center-align" style="margin-bottom:40px">
+        <h5 style="color:forestgreen"><%= product.price %> €</h5>
+        <p><%= product.description %></p>
+    </div>
+    <% if(isAuthenticated && product.userId.toString() != user._id.toString()){ %>
+    <div class="center-align" style="margin-bottom:60px;">
+        <button href="#modal4" class="btn waves-effect waves-light colrr modal-trigger"><i
+                class="large material-icons btn-icon">local_grocery_store</i>Purchase</button>
+    </div>
+    <% } %>
+
+</main>
+
+<div id="modal4" class="modal">
+    <div class="modal-content">
+        <div class="row center-align">
+            <form class="col s12 m8 l6 xl4 offset-s1 offset-m3 offset-l3 offset-xl4"
+                action="<%= '/admin/user/offer/' + product._id %>" method="POST">
+                <div class="row center-align">
+                    <div class="input-field col s10 m10 l12 xl12">
+                        <p>This is a <strong>beta</strong> version of <strong>Mosaik</strong>. You can
+                            <strong>not</strong> buy artworks. <br><br>The item will get re-listed for purchase within 3
+                            days.</p>
+                    </div>
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn modal-close waves-effect waves-light colrr col s10 m10 l12 xl12"><i
+                        class="large material-icons btn-icon">check</i>Agree</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.carousel');
+        var instances = M.Carousel.init(elems, { indicators: true });
+    });
+</script>
+<%- include('../includes/end.ejs') %>

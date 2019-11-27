@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <div class="headerContent">
+        <div class="content">
+            <div class="centered profile__card">
+                <i class="fas fa-user-circle fa-8x"></i>
+                <h2 class="profile__name" style="text-transform: capitalize">
+                    <%= user.address.firstName + " " + user.address.surname %></h2>
+                <p>Your account will get permanently deleted.<br>Are you sure?</p>
+                <form action="/admin/deleteAccount" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="btn danger">Delete Account</button>
+                </form>
+
+
+            </div>
+        </div>
+        <div id="stripes">
+            <span class="stripe" id="stripe1"></span>
+            <span class="stripe" id="stripe2"></span>
+            <span class="stripe" id="stripe3"></span>
+            <span class="stripe" id="stripe4"></span>
+            <span class="stripe" id="stripe5"></span>
+        </div>
+
+    </div>
+
+
+    <div class="below"></div>
+</main>
+
+</div>
+<%- include('../includes/end.ejs') %>

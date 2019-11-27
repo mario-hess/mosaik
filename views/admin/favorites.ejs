@@ -1,0 +1,66 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<%- include('../includes/navigation.ejs') %>
+
+<main>
+    <%- include('../includes/profile-data.ejs') %>
+    <div class="container">
+        <div class="center-align headings">
+            <h4 class="wds-midlight-aqua">
+                <% if(user._id.toString() === userData._id.toString()) { %>
+                My Favorites
+                <% } else { %>
+                <%= userData.address.firstName %>'s Favorites
+                <% } %>
+            </h4>
+        </div>
+        <% if (userData.favorites.length > 0) { %>
+        <div class="row">
+            <% for (let product of userData.favorites) { %>
+            <article class="col s12 m6 l4 xl3 card-col__custom">
+                <div class="card sticky-action card__custom">
+                    <div class="card-image card-custom__image">
+                        <img class="activator" src="/<%= product.imageUrl[0] %>" alt="<%= product.title %>"
+                            style="object-fit: cover;">
+
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" value="<%= product._id %>" name="artworkId">
+                        <button onclick="deleteFavorite(this)"
+                            class="btn-floating halfway-fab waves-effect waves-light red">
+                            <i style="color:#ef9a9a" class="material-icons">favorite</i></button>
+
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">
+                            <h5><%= product.price %> €</h5><i class="material-icons right">more_vert</i>
+                        </span>
+                        <p><a
+                                href="<%= '/admin/user/' + product.userId._id %>"><%= userData.address.firstName + " " + userData.address.surname %></a>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <% if(!product.sold){ %>
+                        <a href="/products/<%= product._id %>">Details</a>
+                        <% }else {%>
+                        <p style="color:forestgreen">SOLD</p>
+                        <% } %>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">
+                            <h4 style="text-transform:capitalize"><%= product.title %></h4><i
+                                class="material-icons right red-text">close</i>
+                        </span>
+                        <p><%= product.description %></p>
+                    </div>
+                </div>
+            </article>
+            <% } %>
+        </div>
+        <% } else { %>
+        <h5 class="center-align" style="margin-bottom:40px">It's pretty quiet here.</h5>
+        <% } %>
+    </div>
+
+    <%- include('../includes/profile-end.ejs') %>
+    <script src="/js/deleteFavorite.js"></script>
+    <%- include('../includes/end.ejs') %>

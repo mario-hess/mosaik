@@ -1,0 +1,80 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<%- include('../includes/navigation.ejs') %>
+
+<main>
+    <%- include('../includes/messageNotification.ejs') %>
+    <% if(errorMessage) { %>
+    <div class="white-text center-align error-message">
+        <h5><%= errorMessage %></h5>
+    </div>
+    <% } %>
+    <!-- FLOATING ACTION BUTTON -->
+    <% if(isAuthenticated) { %>
+    <%- include("../includes/action-bar.ejs") %>
+    <% } %>
+
+    <div class="container center-align" style="margin-bottom:30px;margin-top:30px">
+        <h4 class="wds-midlight-aqua center-align">Artworks</h4>
+    </div>
+    <div class="container product-list-container">
+        <% if (prods.length > 0) { %>
+        <div class="row">
+            <% for (let product of prods) { %>
+            <div class="col s12 m6 l4 xl3 card-col__custom">
+                <div class="card sticky-action card__custom">
+                    <div class="card-image card-custom__image">
+                        <img class="activator" src="/<%= product.imageUrl[0] %>" alt="<%= product.title %>"
+                            style="object-fit: cover;">
+                        <% if(isAuthenticated) { %>
+                        <% if(user._id.toString() !== product.userId._id.toString()) { %>
+
+                        <input type="hidden" value="<%= product._id %>" name="artworkId">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="button" onclick="postFavorite(this)"
+                            class="btn-floating halfway-fab waves-effect waves-light red">
+                            <i class="material-icons"
+                                style="<%= product.favorites.includes(user._id) ? 'color: #ef9a9a' : 'color:white' %>">favorite</i></button>
+                        <% } %>
+                        <% } %>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">
+                            <h5><%= product.price %> €</h5><i class="material-icons right">more_vert</i>
+                        </span>
+                        <p><a
+                                href="<%= '/admin/user/' + product.userId._id %>"><%= product.userId.address.firstName + " " + product.userId.address.surname %></a>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <% if(!product.sold){ %>
+                        <a href="/products/<%= product._id %>">Details</a>
+                        <% }else {%>
+                        <p style="color:forestgreen">SOLD</p>
+                        <% } %>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">
+                            <h4 style="text-transform:capitalize"><%= product.title %></h4><i
+                                class="material-icons right red-text">close</i>
+                        </span>
+                        <p><%= product.description %></p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <%- include("../includes/pagination.ejs", {currentPage: currentPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage}) %>
+
+        <% } else { %>
+        <h5 class="center-align">Seems like you are the first one!<br>Feel free to add an artwork.</h5>
+        <% } %>
+    </div>
+
+    <%- include("../includes/modal-add-artwork.ejs") %>
+    <%- include("../includes/modal-settings.ejs") %>
+
+</main>
+
+<script src="/js/favorite.js"></script>
+<%- include('../includes/end.ejs') %>

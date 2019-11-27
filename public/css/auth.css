@@ -1,0 +1,33 @@
+.login-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  margin-top:3rem;
+  margin-bottom:3rem;
+  display: block;
+  padding:1rem 3rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  background-color: white;
+  border-radius: 8px;
+}
+
+.message-form {
+  width: 40rem;
+  max-width: 90%;
+  margin: auto;
+  margin-top:3rem;
+  margin-bottom:3rem;
+  display: block;
+  padding:1rem 3rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  background-color: white;
+  border-radius: 8px;
+}
+
+.login {
+  margin-left: 0.5rem;
+}
+
+.textColor {
+  color: #3b3b3b;
+}

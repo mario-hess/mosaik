@@ -1,0 +1,87 @@
+<!--  DELETE ACCOUNT MODAL  -->
+<div id="modal3" class="modal">
+    <div class="modal-content">
+        <div class="row center-align">
+            <form class="col s12 m8 l6 xl4" action="/admin/deleteAccount" method="POST">
+                <div class="row center-align">
+                    <div class="input-field col s10 m10 l12 xl12 offset-s1">
+                        <p>Your account will get permanently deleted.<br>Are you sure?</p>
+                    </div>
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn modal-close waves-effect waves-light">Delete Account</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="center-align">
+            <a class="center-align" href="/reset">Reset Password</a>
+        </div>
+    </div>
+</div>
+
+<!--  ADD PROFILE PICTURE MODAL  -->
+<div id="modal4" class="modal">
+    <div class="modal-content">
+        <div class="row center-align">
+            <h5 class="modal-heading-background">Add Picture</h5>
+            <form class="col s12 m8 l6 xl4 offset-s1 offset-m3 offset-l3 offset-xl4" action="/admin/addProfilePicture"
+                method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="file-field input-field col s10 m10 l12 xl12">
+                        <div class="btn-small waves-effect waves-light colrr">
+                            <span>File</span>
+                            <input type="file" name="image" id="image">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn-small modal-close waves-effect waves-light colrr">Add Picture</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--  SEND MESSAGE MODAL  -->
+<div id="send-message" class="modal">
+    <div class="modal-content">
+        <div class="row center-align">
+            <h5 class="modal-heading-background"><%= userData.address.firstName + " " + userData.address.surname %></h5>
+            <form class="col s10 m8 l6 xl4 offset-s1 offset-m3 offset-l3 offset-xl4"
+                action="<%= '/admin/user/messages/new/' + userData._id.toString() %>" method="POST">
+                <div class="row center-align">
+                    <div class="input-field input-field-modal col s10 m10 l12 xl12 offset-s1 offset-m1">
+                        <textarea id="message" name="message" type="text" class="materialize-textarea validate"
+                            data-length="200" maxlength="200"></textarea>
+                        <label for="message">Message</label>
+                    </div>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button class="btn waves-effect waves-light center-align colrr" type="submit" name="action"><i
+                            class="material-icons btn-icon">send</i>Send
+
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+</main>
+
+<script src="/js/toggleDesc.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const elem = document.getElementById('desc')
+        return M.CharacterCounter.init(elem)
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const elem = document.getElementById('message')
+        return M.CharacterCounter.init(elem)
+    });
+</script>

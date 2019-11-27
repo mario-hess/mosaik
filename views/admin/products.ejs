@@ -1,0 +1,59 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <div class="headerContent">
+        <div class="content">
+            <% if (prods.length > 0) { %>
+            <div class="grid">
+                <% for (let product of prods) { %>
+                <article class="card product-item admin-product__card">
+                    <header class="card__header">
+                        <h1 class="product__title" style="text-transform: capitalize">
+                            <%= product.title %>
+                        </h1>
+                    </header>
+                    <div class="card__image">
+                        <img src="/<%= product.imageUrl %>" alt="<%= product.title %>">
+                    </div>
+                    <div class="card__content">
+                        <p class="centered"><strong><%= product.category %></strong></p>
+                        <hr class="product__hr">
+                        <h2 class="product__price">€
+                            <%= product.price %>
+                        </h2>
+                        <p class="product__description">
+                            <%= product.description %>
+                        </p>
+                    </div>
+                    <div class="card__actions">
+                        <a href="/admin/edit-product/<%= product._id %>?edit=true" class="btn">Edit</a>
+                        <input type="hidden" value="<%= product._id %>" name="productId">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button class="btn danger" type="button" onClick="deleteProduct(this)">Delete</button>
+                    </div>
+                </article>
+                <% } %>
+            </div>
+            <% } else { %>
+            <h1>No Products Found!</h1>
+            <% } %>
+        </div>
+        <div id="stripes">
+            <span class="stripe" id="stripe1"></span>
+            <span class="stripe" id="stripe2"></span>
+            <span class="stripe" id="stripe3"></span>
+            <span class="stripe" id="stripe4"></span>
+            <span class="stripe" id="stripe5"></span>
+        </div>
+
+    </div>
+
+
+</main>
+
+</div>
+
+<%- include('../includes/end.ejs') %>
+<script src="/js/admin.js"></script>

@@ -1,0 +1,154 @@
+<body>
+
+    <nav style="z-index:100">
+        <div class="nav-wrapper colrr">
+            <div class="container">
+                <a href="/" class="brand-logo">Mosaik</a>
+                <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/products">Artworks</a></li>
+                    <% if(isAuthenticated) { %>
+                    <li><a href="<%= '/admin/user/' + user._id %>">Profile</a></li>
+                    <% } %>
+                    <% if(!isAuthenticated) { %>
+                    <li><a class="modal-trigger" href="#modal1">Login</a></li>
+                    <li><a class="modal-trigger" href="#modal2">Sign Up</a></li>
+                    <% } %>
+                    <% if(isAuthenticated) { %>
+                    <li>
+                        <form action="/logout" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <a href=""><button class="btn-small waves-effect waves-light colrr"
+                                    type="submit">Logout</button></a>
+                        </form>
+                    </li>
+
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--  SIDE NAV  -->
+
+    <ul class="sidenav center-align" id="mobile-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/products">Artworks</a></li>
+        <% if(isAuthenticated) { %>
+        <li><a href="<%= '/admin/user/' + user._id %>">Profile</a></li>
+        <% } %>
+        <% if(!isAuthenticated) { %>
+        <li><a class="modal-trigger" href="#modal1">Login</a></li>
+        <li><a class="modal-trigger" href="#modal2">Sign Up</a></li>
+        <% } %>
+        <% if(isAuthenticated) { %>
+        <form id="nav_logout" action="/logout" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="waves-effect waves-light btn-small white" type="submit"><i
+                    class="material-icons left">exit_to_app</i>Logout</button>
+        </form>
+        <% } %>
+    </ul>
+
+    <!--  MODAL LOGIN  -->
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h5 class="center-align modal-heading-background"><i class="material-icons btn-icon">lock_outline</i>Login
+            </h5>
+            <div class="row">
+                <form class="col s12 m8 l6 xl4 offset-s1 offset-m3 offset-l3 offset-xl4 form-login" action="/login"
+                    method="POST">
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="email_login" type="email" name="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="password_login" type="password" name="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button class="btn modal-close waves-effect waves-light colrr">Login</button>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="center-align">
+                <a class="center-align" href="/reset">Reset Password</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL SIGN UP -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h5 class="center-align modal-heading-background"><i class="material-icons btn-icon">account_circle</i>Sign
+                Up</h5>
+            <div class="row">
+                <form class="col s12 m8 l6 xl4 offset-s1 offset-m3 offset-l3 offset-xl4" action="/signup" method="POST">
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="email" type="email" name="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="firstName" type="text" name="firstName" class="validate">
+                            <label for="firstName">First Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="surname" type="text" name="surname" class="validate">
+                            <label for="surname">Surname</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="street" type="text" name="street" class="validate">
+                            <label for="street">Street</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="postalCode" type="text" name="postalCode" class="validate">
+                            <label for="postalCode">Postal Code</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="city" type="text" name="city" class="validate">
+                            <label for="city">City</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="password" type="password" name="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field input-field-modal col s10 m10 l12 xl12">
+                            <input id="confirmPassword" type="password" name="confirmPassword" class="validate">
+                            <label for="confirmPassword">Confirm Password</label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button class="btn modal-close waves-effect waves-light colrr">Sign Up</button>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="center-align">
+                <a class="center-align" href="/reset">Reset Password</a>
+            </div>
+
+        </div>
+    </div>

@@ -1,0 +1,41 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/auth.css">
+</head>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <div class="headerContent">
+        <div class="content">
+
+            <form class="message-form" action="<%= '/admin/user/messages/new/' + userId %>" method="POST">
+                <div class="form-control">
+                    <h2 class="centered">New Message</h2>
+                    <p style="text-transform: capitalize">To:
+                        <strong><%= user.address.firstName + " " + user.address.surname %></strong></p>
+                    <label for="subject">Subject</label>
+                    <input type="text" name="subject" id="subject" placeholder="What do you want to talk about?">
+                </div>
+                <div class="form-control">
+                    <label for="message">Message</label>
+                    <textarea rows="5" name="message" id="message" placeholder="What's on your mind?"></textarea>
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="btn" type="submit">Send Message</button>
+            </form>
+        </div>
+        <div id="stripes">
+            <span class="stripe" id="stripe1"></span>
+            <span class="stripe" id="stripe2"></span>
+            <span class="stripe" id="stripe3"></span>
+            <span class="stripe" id="stripe4"></span>
+            <span class="stripe" id="stripe5"></span>
+        </div>
+
+    </div>
+
+
+    <div class="below"></div>
+</main>
+
+</div>
+<%- include('../includes/end.ejs') %>

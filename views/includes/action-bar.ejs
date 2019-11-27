@@ -1,0 +1,22 @@
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light btn colrr">
+        <i class="large material-icons">more_horiz</i>
+    </a>
+    <ul>
+        <li><a href="#modal-settings" class="modal-trigger btn-floating waves-effect waves-light grey darken-3"><i
+                    class="material-icons">settings</i></a></li>
+        <li><a href="<%= '/admin/user/favorites/' + user._id.toString() %>"
+                class="btn-floating waves-effect waves-light red"><i class="material-icons">favorite</i></a></li>
+        <li><a href="/cart" class="btn-floating waves-effect waves-light amber darken-2"><i
+                    class="material-icons">local_grocery_store</i></a></li>
+        <li><a href="<%= '/admin/user/messages/' + user._id.toString() %>"
+                class="btn-floating waves-effect waves-light green"><i class="material-icons">mail</i></a></li>
+        <li><a href="<%= '/admin/user/' + user._id.toString() %>"
+                class="modal-trigger btn-floating waves-effect waves-light blue"><i
+                    class="material-icons">account_circle</i></a></li>
+        <li><a href="#modal-add-artwork" class="modal-trigger btn-floating waves-effect waves-light deep-purple"><i
+                    class="material-icons">add</i></a></li>
+        <li><a href="/products" class=" btn-floating waves-effect waves-light pink darken-2"><i
+                    class="material-icons">palette</i></a></li>
+    </ul>
+</div>
