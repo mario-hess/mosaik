@@ -1,12 +1,12 @@
 const fs = require("fs");
 
-const s3keys = require("../config/s3keys");
+//const s3keys = require("../config/s3keys");
 
 const aws = require('aws-sdk');
 
 const s3 = new aws.S3({
-  accessKeyId: s3keys.ID,
-  secretAccessKey: s3keys.SECRET
+  accessKeyId: process.env.ID,
+  secretAccessKey: process.env.SECRET
 });
 
 const deleteFile = (bucket, key) => {
