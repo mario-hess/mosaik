@@ -15,7 +15,7 @@
                 <% } else if(userData.userImage) { %>
                 <a class="<%= user._id.toString() === userData._id.toString() ? 'modal-trigger' : ''  %>"
                     href="<%= user._id.toString() === userData._id.toString() ? '#modal4' : ''  %>"><img
-                        src="/<%= userData.userImage %>" alt="Click to edit profile picture"
+                        src="<%= userData.userImage %>" alt="Click to edit profile picture"
                         style="height:120px;width:120px;object-fit: cover;border:3px solid white" class="circle"></a>
                 <% } %>
 

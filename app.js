@@ -7,23 +7,38 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
 const flash = require("connect-flash");
 const multer = require("multer");
+const multerS3 = require("multer-s3");
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
-const mongodbUri = require("./config/keys");
-const secret = require("./config/secret");
+//const mongodbUri = require("./config/keys");
+//const secret = require("./config/secret");
+//const s3keys = require("./config/s3keys");
 
-const MONGODB_URI = mongodbUri;
+const aws = require('aws-sdk');
+
+//const MONGODB_URI = mongodbUri;
+
 
 const app = express();
 
 const store = new MongoDBStore({
-  uri: MONGODB_URI,
+  uri: process.env.MONGODB_URI,
   collection: "sessions"
 });
 
+
 const csrfProtection = csrf();
+
+// AWS S3 INIT
+
+const s3 = new aws.S3({
+  accessKeyId: process.env.ID,
+  secretAccessKey: process.env.SECRET
+});
+
+
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -55,13 +70,23 @@ const authRoutes = require("./routes/auth");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).array("image", 5)
+  multer({ storage: multerS3({
+    s3: s3,
+    bucket: process.env.BUCKET_NAME,
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString() + path.extname(file.originalname))
+    }
+  }), fileFilter: fileFilter }).array("image", 5)
 );
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(
   session({
-    secret: secret,
+    secret: process.env.secr,
     resave: false,
     saveUninitialized: false,
     store: store,
@@ -121,7 +146,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .then(result => {
     app.listen(5000);
   })

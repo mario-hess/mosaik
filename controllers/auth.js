@@ -2,8 +2,18 @@ const crypto = require("crypto");
 
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
-const transporter = require("../public/js/nodemailerTransport");
 const { validationResult } = require("express-validator");
+
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.user,
+    pass: process.env.pass
+  }
+});
+
 
 
 

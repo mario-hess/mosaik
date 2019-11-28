@@ -7,6 +7,8 @@ const moment = require("moment");
 
 const fileHelper = require("../util/file");
 
+//const s3keys = require("../config/s3keys");
+
 const ITEMS_PER_PAGE = 4;
 
 exports.getAddProduct = (req, res, next) => {
@@ -90,7 +92,7 @@ exports.postAddProduct = (req, res, next) => {
 
       const imageUrl = [];
       image.forEach(img => {
-        imageUrl.push(img.path);
+        imageUrl.push(img.location);
       });
 
       const product = new Product({
@@ -143,9 +145,9 @@ exports.postAddProfilePicture = (req, res, next) => {
       }
       if (image) {
         if (user.userImage) {
-          fileHelper.deleteFile(user.userImage);
-        }
-        user.userImage = image[0].path;
+          const key = user.userImage.substring(52);
+          fileHelper.deleteFile(process.env.BUCKET_NAME, key)}
+        user.userImage = image[0].location;
       }
       return user.save();
     })
@@ -212,7 +214,7 @@ exports.postEditProduct = (req, res, next) => {
   }
   const imageUrl = [];
   image.forEach(img => {
-    imageUrl.push(img.path);
+    imageUrl.push(img.location);
   });
 
   Product.findById(prodId)
@@ -226,7 +228,8 @@ exports.postEditProduct = (req, res, next) => {
       product.description = updatedDescription;
       if (imageUrl) {
         product.imageUrl.forEach(imgUrl => {
-          fileHelper.deleteFile(imgUrl);
+          const key = imgUrl.substring(52);
+          fileHelper.deleteFile(process.env.BUCKET_NAME, key);
         });
         product.imageUrl = imageUrl;
         console.log(imageUrl);
@@ -268,7 +271,8 @@ exports.postDeleteProduct = (req, res, next) => {
         return next(new Error("Product not found."));
       }
       product.imageUrl.forEach(imgUrl => {
-        fileHelper.deleteFile(imgUrl);
+        const key = imgUrl.substring(52);
+        fileHelper.deleteFile(process.env.BUCKET_NAME, key);
       });
 
       return Product.deleteOne({ _id: prodId, userId: req.user._id });
@@ -560,7 +564,8 @@ exports.postDeleteAccount = (req, res, next) => {
       .then(products => {
         products.forEach(product => {
           product.imageUrl.forEach(imgUrl => {
-            fileHelper.deleteFile(imgUrl);
+            const key = imgUrl.substring(52);
+            fileHelper.deleteFile(process.env.BUCKET_NAME, key);
           });
           product.remove();
         });
@@ -568,14 +573,17 @@ exports.postDeleteAccount = (req, res, next) => {
       })
       .then(user => {
         if (user.userImage) {
-          fileHelper.deleteFile(user.userImage);
+          const key = user.userImage.substring(52);
+          fileHelper.deleteFile(process.env.BUCKET_NAME, key);
         }
         user.messages.forEach(msg => {
           if (msg.toImage) {
-            fileHelper.deleteFile(msg.toImage);
+            const key = msg.toImage.substring(52);
+            fileHelper.deleteFile(process.env.BUCKET_NAME, key);
           }
           if (msg.fromImage) {
-            fileHelper.deleteFile(msg.fromImage);
+            const key = msg.fromImage.substring(52);
+            fileHelper.deleteFile(process.env.BUCKET_NAME, key);
           }
         });
 

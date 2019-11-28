@@ -24,7 +24,7 @@
             <div class="col s12 m6 l4 xl3 card-col__custom">
                 <div class="card sticky-action card__custom">
                     <div class="card-image card-custom__image">
-                        <img class="activator" src="/<%= product.imageUrl[0] %>" alt="<%= product.title %>"
+                        <img class="activator" src="<%= product.imageUrl[0] %>" alt="<%= product.title %>"
                             style="object-fit: cover;">
                         <% if(user._id.toString() === userData._id.toString() && product.sold === false){ %>
                         <a href="<%= '/admin/edit-product/' + product._id.toString() %>"

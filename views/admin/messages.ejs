@@ -20,7 +20,7 @@
                         <div class="row valign-wrapper">
                             <div class="col s4">
                                 <% if (msg.fromImage != null){ %>
-                                <img style="height:80px;width:80px;" src="/<%= msg.fromImage %>" alt=""
+                                <img style="height:80px;width:80px;" src="<%= msg.fromImage %>" alt=""
                                     class="circle responsive-img">
                                 <% }else { %>
                                 <i class="material-icons" style="font-size:5rem">account_circle</i>
@@ -45,7 +45,7 @@
                         <% sent.forEach(msg => { %>
                         <div class="row valign-wrapper">
                             <div class="col s4">
-                                <img style="height:80px;width:80px;" src="/<%= msg.toImage %>" alt=""
+                                <img style="height:80px;width:80px;" src="<%= msg.toImage %>" alt=""
                                     class="circle responsive-img">
                             </div>
                             <div class="col s8">
