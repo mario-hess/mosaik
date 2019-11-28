@@ -287,7 +287,7 @@ exports.postDeleteProduct = (req, res, next) => {
 exports.getUserProfile = (req, res, next) => {
   const userId = req.params.userId;
   let userData = null;
-
+  
   User.findById(userId)
     .then(user => {
       userData = user;

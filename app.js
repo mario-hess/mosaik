@@ -10,16 +10,16 @@ const multer = require("multer");
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
-/*
+
 const mongodbUri = require("./config/keys");
 const secret = require("./config/secret");
 
 const MONGODB_URI = mongodbUri;
-*/
+
 const app = express();
 
 const store = new MongoDBStore({
-  uri: process.env.MONGODB,
+  uri: MONGODB_URI,
   collection: "sessions"
 });
 
@@ -61,7 +61,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: secret,
     resave: false,
     saveUninitialized: false,
     store: store,
@@ -121,8 +121,8 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(process.env.MONGODB, { useNewUrlParser: true })
+  .connect(MONGODB_URI, { useNewUrlParser: true })
   .then(result => {
-    app.listen(process.env.PORT || 5000);
+    app.listen(5000);
   })
   .catch(err => console.log(err));

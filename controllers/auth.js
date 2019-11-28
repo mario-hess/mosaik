@@ -2,18 +2,10 @@ const crypto = require("crypto");
 
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
-/* const transporter = require("../public/js/nodemailerTransport"); */
+const transporter = require("../public/js/nodemailerTransport");
 const { validationResult } = require("express-validator");
 
-const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.USER,
-    pass: process.env.PSWD
-  }
-});
 
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
@@ -24,7 +16,7 @@ exports.postLogin = (req, res, next) => {
     console.log(errors.array());
     return res.status(422).render("shop/index", {
       path: "/",
-      docTitle: "Home",
+      docTitle: "Mosaik",
       errorMessage: errors.array()[0].msg,
       successMessage: null,
       oldInput: {
@@ -40,7 +32,7 @@ exports.postLogin = (req, res, next) => {
       if (!user) {
         return res.status(422).render("shop/index", {
           path: "/",
-          docTitle: "Home",
+          docTitle: "Mosaik",
           errorMessage: "Invalid email or password.",
           successMessage: null,
           oldInput: {
@@ -62,7 +54,7 @@ exports.postLogin = (req, res, next) => {
           }
           return res.status(422).render("shop/index", {
             path: "/",
-            docTitle: "Home",
+            docTitle: "Mosaik",
             errorMessage: "Invalid email or password.",
             successMessage: null,
             oldInput: {
@@ -105,7 +97,7 @@ exports.postSignUp = (req, res, next) => {
     console.log(errors.array());
     return res.status(422).render("shop/index", {
       path: "/",
-      docTitle: "Home",
+      docTitle: "Mosaik",
       errorMessage: errors.array()[0].msg,
       successMessage: null,
       oldInput: {
@@ -143,7 +135,7 @@ exports.postSignUp = (req, res, next) => {
     })
     .then(result => {
       res.render("shop/index", {
-        docTitle: "Home",
+        docTitle: "Mosaik",
         path: "/",
         errorMessage: null,
         successMessage: "Successfully signed up!"
@@ -188,7 +180,7 @@ exports.postReset = (req, res, next) => {
         if (!user) {
           return res.render("shop/index", {
             path: "/index",
-            docTitle: "Home",
+            docTitle: "Mosaik",
             errorMessage: "Email does not exist."
           });
         } else {
@@ -201,7 +193,7 @@ exports.postReset = (req, res, next) => {
         if (result) {
           res.render("shop/index", {
             path: "/index",
-            docTitle: "Home",
+            docTitle: "Mosaik",
             errorMessage: null,
             successMessage: "Email sent!"
           });
@@ -273,7 +265,7 @@ exports.postNewPassword = (req, res, next) => {
     .then(result => {
       res.render("shop/index", {
         path: "/index",
-        docTitle: "Home",
+        docTitle: "Mosaik",
         errorMessage: null,
         successMessage: "Password successfully resetted."
       });
