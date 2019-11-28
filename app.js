@@ -64,7 +64,8 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
-    store: store
+    store: store,
+    maxAge: Date.now() + (30 * 86400 * 1000)
   })
 );
 
