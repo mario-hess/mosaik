@@ -290,14 +290,6 @@ exports.getUserProfile = (req, res, next) => {
 
   User.findById(userId)
     .then(user => {
-      if(!user){
-        return res.render("shop/index", {
-          docTitle: "Mosaik",
-          path: "/",
-          errorMessage: "You need an Account to access user profiles",
-          successMessage: null
-        });
-      }
       userData = user;
       Product.find({ userId: user._id }).then(products => {
         res.render("admin/profile", {

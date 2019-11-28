@@ -42,9 +42,13 @@
                         <span class="card-title activator grey-text text-darken-4">
                             <h5><%= product.price %> €</h5><i class="material-icons right">more_vert</i>
                         </span>
+                        <% if(isAuthenticated){ %>
                         <p><a
                                 href="<%= '/admin/user/' + product.userId._id %>"><%= product.userId.address.firstName + " " + product.userId.address.surname %></a>
                         </p>
+                        <% }else{ %>
+                            <p><%= product.userId.address.firstName + " " + product.userId.address.surname %></p>
+                        <% } %>
                     </div>
                     <div class="card-action">
                         <% if(!product.sold){ %>
