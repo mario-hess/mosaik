@@ -2,4 +2,4 @@
 This is an online platform for offering and purchasing artworks.
 Written in Node.js.
 
-Link: http://35.157.172.209:5000/
+//abondoned project - was learning node at the time and moved on to other projects
